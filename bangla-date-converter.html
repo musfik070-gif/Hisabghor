@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>বাংলা তারিখ কনভার্টার — ইংরেজি ↔ বঙ্গাব্দ | হিসাবঘর</title>
+<meta name="description" content="ইংরেজি তারিখকে বাংলা তারিখে (বঙ্গাব্দ) এবং বাংলা তারিখকে ইংরেজিতে বিনামূল্যে রূপান্তর করুন। সরকারি সংশোধিত বঙ্গাব্দ পঞ্জিকা অনুসারে নির্ভুল হিসাব।">
+<link rel="canonical" href="https://hishabghor.me/bangla-date-converter.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tiro+Bangla:ital@0;1&family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-XXXXXXXXXX');
+</script>
+</head>
+<body>
+<div class="wrap">
+  <header class="site">
+    <a class="brand" href="index.html">হিসাবঘর</a>
+  </header>
+  <nav class="crumbs"><a href="index.html">হোম</a> / বাংলা তারিখ কনভার্টার</nav>
+
+  <h1>বাংলা তারিখ কনভার্টার</h1>
+  <div class="intro">
+    <p>জন্ম নিবন্ধন, চাকরির আবেদন বা যেকোনো সরকারি ফর্মে অনেক সময় বাংলা তারিখ (বঙ্গাব্দ) লিখতে হয়, কিন্তু আমরা সাধারণত ইংরেজি তারিখেই অভ্যস্ত। এই টুল দিয়ে যেকোনো ইংরেজি তারিখকে বাংলায়, বা বাংলা তারিখকে ইংরেজিতে সাথে সাথে রূপান্তর করে নিতে পারবেন।</p>
+  </div>
+
+  <div class="card">
+    <h2>রূপান্তর করুন</h2>
+    <p class="sub">ইংরেজি (খ্রিস্টাব্দ) থেকে বাংলা, অথবা বাংলা থেকে ইংরেজি — দুই দিকেই।</p>
+
+    <div class="field-row">
+      <div class="field" style="flex:0 0 auto;">
+        <label>রূপান্তরের দিক</label>
+        <select id="date-direction">
+          <option value="g2b">ইংরেজি ➜ বাংলা</option>
+          <option value="b2g">বাংলা ➜ ইংরেজি</option>
+        </select>
+      </div>
+    </div>
+
+    <div id="g2b-fields">
+      <div class="field-row">
+        <div class="field">
+          <label>ইংরেজি তারিখ</label>
+          <input type="text" id="greg-date" placeholder="YYYY-MM-DD, যেমন 2026-09-10">
+        </div>
+      </div>
+    </div>
+
+    <div id="b2g-fields" style="display:none;">
+      <div class="field-row">
+        <div class="field">
+          <label>বাংলা সাল</label>
+          <input type="number" id="bn-year" placeholder="যেমন 1433">
+        </div>
+        <div class="field">
+          <label>বাংলা মাস</label>
+          <select id="bn-month">
+            <option value="1">বৈশাখ</option><option value="2">জ্যৈষ্ঠ</option><option value="3">আষাঢ়</option>
+            <option value="4">শ্রাবণ</option><option value="5">ভাদ্র</option><option value="6">আশ্বিন</option>
+            <option value="7">কার্তিক</option><option value="8">অগ্রহায়ণ</option><option value="9">পৌষ</option>
+            <option value="10">মাঘ</option><option value="11">ফাল্গুন</option><option value="12">চৈত্র</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>তারিখ</label>
+          <input type="number" id="bn-day" placeholder="১-৩১" min="1" max="31">
+        </div>
+      </div>
+    </div>
+
+    <button class="btn" onclick="convertDate()">রূপান্তর করুন</button>
+    <div class="error-text" id="date-error"></div>
+
+    <div class="result" id="date-result">
+      <div class="big" id="date-result-big"></div>
+      <div class="rows" id="date-result-rows"></div>
+    </div>
+
+    <p class="note">এই কনভার্টার বাংলাদেশে সরকারিভাবে প্রচলিত সংশোধিত (১৯৮৭/২০১৯) বঙ্গাব্দ পঞ্জিকা অনুসারে হিসাব করে, যেখানে পহেলা বৈশাখ প্রতি বছর ১৪ এপ্রিল ধরা হয়। ১৯৮৮ সালের আগের তারিখ এবং আইনি/দলিলপত্রের কাজে ব্যবহারের আগে সরকারি সূত্রে যাচাই করে নেওয়া ভালো।</p>
+  </div>
+
+  <div class="related">
+    <h3>আরও দেখুন</h3>
+    <ul>
+      <li><a href="land-calculator.html">জমির মাপ কনভার্টার</a></li>
+      <li><a href="gpa-calculator.html">SSC/HSC GPA ক্যালকুলেটর</a></li>
+    </ul>
+  </div>
+
+  <footer>হিসাবঘর — একটি ছোট, স্বাধীনভাবে তৈরি টুলবক্স।</footer>
+</div>
+
+<script>
+const bnMonthNames = ["বৈশাখ","জ্যৈষ্ঠ","আষাঢ়","শ্রাবণ","ভাদ্র","আশ্বিন","কার্তিক","অগ্রহায়ণ","পৌষ","মাঘ","ফাল্গুন","চৈত্র"];
+const bnDigits = ['০','১','২','৩','৪','৫','৬','৭','৮','৯'];
+function toBnNum(n){ return String(n).split('').map(c => (c>='0'&&c<='9') ? bnDigits[c] : c).join(''); }
+function isGregLeap(y){ return (y%4===0 && y%100!==0) || y%400===0; }
+function bnMonthLengths(G){ const falgunLen = isGregLeap(G+1) ? 31 : 30; return [31,31,31,31,31,30,30,30,30,30,falgunLen,30]; }
+function daysBetween(d1,d2){ return Math.round((d2-d1)/86400000); }
+function gregorianToBangla(y,m,d){
+  const date = new Date(Date.UTC(y,m-1,d));
+  const apr14 = new Date(Date.UTC(y,3,14));
+  const G = (date >= apr14) ? y : y-1;
+  const start = new Date(Date.UTC(G,3,14));
+  let offset = daysBetween(start, date);
+  const lens = bnMonthLengths(G);
+  let mi = 0;
+  while(offset >= lens[mi]){ offset -= lens[mi]; mi++; }
+  return { year: G-593, month: mi+1, day: offset+1 };
+}
+function banglaToGregorian(B, month, day){
+  const G = B+593;
+  const lens = bnMonthLengths(G);
+  let offset = 0;
+  for(let i=0;i<month-1;i++) offset += lens[i];
+  offset += (day-1);
+  const start = new Date(Date.UTC(G,3,14));
+  const res = new Date(start.getTime() + offset*86400000);
+  return { year: res.getUTCFullYear(), month: res.getUTCMonth()+1, day: res.getUTCDate() };
+}
+document.getElementById('date-direction').addEventListener('change', function(){
+  document.getElementById('g2b-fields').style.display = this.value==='g2b' ? 'block':'none';
+  document.getElementById('b2g-fields').style.display = this.value==='b2g' ? 'block':'none';
+  document.getElementById('date-result').classList.remove('show');
+});
+function convertDate(){
+  const errEl = document.getElementById('date-error');
+  const resEl = document.getElementById('date-result');
+  errEl.classList.remove('show'); resEl.classList.remove('show');
+  const dir = document.getElementById('date-direction').value;
+  if(dir === 'g2b'){
+    const raw = document.getElementById('greg-date').value.trim();
+    const m = raw.match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/);
+    if(!m){ errEl.textContent='তারিখ YYYY-MM-DD ফরম্যাটে দিন, যেমন 2026-09-10'; errEl.classList.add('show'); return; }
+    const y=+m[1], mo=+m[2], da=+m[3];
+    const check = new Date(Date.UTC(y,mo-1,da));
+    if(check.getUTCFullYear()!==y || check.getUTCMonth()!==mo-1 || check.getUTCDate()!==da){
+      errEl.textContent='তারিখটি সঠিক নয়।'; errEl.classList.add('show'); return;
+    }
+    const b = gregorianToBangla(y,mo,da);
+    document.getElementById('date-result-big').textContent = `${toBnNum(b.day)} ${bnMonthNames[b.month-1]}, ${toBnNum(b.year)} বঙ্গাব্দ`;
+    document.getElementById('date-result-rows').innerHTML = `<div>ইংরেজি তারিখ</div><div>${raw}</div>`;
+    resEl.classList.add('show');
+  } else {
+    const y = parseInt(document.getElementById('bn-year').value);
+    const mo = parseInt(document.getElementById('bn-month').value);
+    const da = parseInt(document.getElementById('bn-day').value);
+    if(!y || !da || da<1 || da>31){ errEl.textContent='বাংলা সাল ও তারিখ সঠিকভাবে দিন।'; errEl.classList.add('show'); return; }
+    const g = banglaToGregorian(y,mo,da);
+    const pad = n => String(n).padStart(2,'0');
+    document.getElementById('date-result-big').textContent = `${g.year}-${pad(g.month)}-${pad(g.day)}`;
+    document.getElementById('date-result-rows').innerHTML = `<div>বাংলা তারিখ</div><div>${toBnNum(da)} ${bnMonthNames[mo-1]}, ${toBnNum(y)}</div>`;
+    resEl.classList.add('show');
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,93 @@
+:root{
+  --bg: #F3F1E7;
+  --surface: #FFFFFF;
+  --ink: #1F3A2E;
+  --ink-soft: #5B6156;
+  --accent: #C08A00;
+  --accent-ink: #3A2A00;
+  --border: #D8D3C2;
+  --error: #A13D2E;
+}
+*{ box-sizing: border-box; }
+html,body{ margin:0; padding:0; }
+body{
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Hind Siliguri', sans-serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+.wrap{ max-width: 760px; margin: 0 auto; padding: 40px 20px 80px; }
+header.site{ margin-bottom: 28px; }
+header.site .brand{
+  font-family: 'Tiro Bangla', serif;
+  font-size: 1.5rem;
+  color: var(--ink);
+  text-decoration: none;
+}
+header.site .tagline{ color: var(--ink-soft); font-size: 0.92rem; margin-top: 4px; }
+nav.crumbs{ font-size: 0.85rem; color: var(--ink-soft); margin-bottom: 18px; }
+nav.crumbs a{ color: var(--ink-soft); }
+h1{
+  font-family: 'Tiro Bangla', serif;
+  font-size: 1.9rem;
+  font-weight: 400;
+  margin: 0 0 10px;
+  color: var(--ink);
+}
+.intro{ color: var(--ink-soft); font-size: 0.98rem; margin-bottom: 24px; max-width: 62ch; }
+.intro p{ margin: 0 0 12px; }
+.card{
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 24px;
+  margin-bottom: 20px;
+}
+.card h2{ font-family: 'Tiro Bangla', serif; font-weight: 400; font-size: 1.25rem; margin: 0 0 4px; }
+.card .sub{ color: var(--ink-soft); font-size: 0.9rem; margin: 0 0 20px; }
+.field-row{ display: flex; gap: 12px; margin-bottom: 14px; flex-wrap: wrap; }
+.field{ flex: 1; min-width: 120px; }
+.field label{ display: block; font-size: 0.85rem; color: var(--ink-soft); margin-bottom: 5px; }
+input[type=number], input[type=text], select{
+  width: 100%; font-family: 'Hind Siliguri', sans-serif; font-size: 1rem;
+  padding: 9px 11px; border: 1px solid var(--border); border-radius: 4px;
+  background: #FFFEFC; color: var(--ink);
+}
+input:focus, select:focus, button:focus-visible{ outline: 2px solid var(--accent); outline-offset: 1px; }
+.btn{
+  font-family: 'Hind Siliguri', sans-serif; font-weight: 600; font-size: 0.98rem;
+  background: var(--accent); color: var(--accent-ink); border: none;
+  border-radius: 4px; padding: 11px 22px; cursor: pointer; margin-top: 6px;
+}
+.btn:hover{ filter: brightness(0.95); }
+.result{
+  margin-top: 18px; padding: 16px 18px; background: var(--bg);
+  border: 1px solid var(--border); border-radius: 6px; display: none;
+}
+.result.show{ display: block; }
+.result .big{ font-family: 'Tiro Bangla', serif; font-size: 1.5rem; margin-bottom: 8px; }
+.result .rows{ display: grid; grid-template-columns: 1fr auto; gap: 4px 16px; font-size: 0.92rem; color: var(--ink-soft); }
+.result .rows div:nth-child(2n){ text-align: right; font-variant-numeric: tabular-nums; color: var(--ink); }
+.error-text{ color: var(--error); font-size: 0.88rem; margin-top: 8px; display: none; }
+.error-text.show{ display: block; }
+.note{ font-size: 0.82rem; color: var(--ink-soft); margin-top: 14px; border-top: 1px solid var(--border); padding-top: 12px; }
+table.gpa-table{ width: 100%; border-collapse: collapse; margin-bottom: 10px; }
+table.gpa-table th{ text-align: left; font-size: 0.82rem; color: var(--ink-soft); font-weight: 600; padding: 6px 6px; border-bottom: 1px solid var(--border); }
+table.gpa-table td{ padding: 6px 6px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+table.gpa-table input[type=number]{ width: 80px; }
+table.gpa-table input[type=text]{ width: 100%; }
+.subj-count{ display:flex; align-items:center; gap:10px; margin-bottom: 14px; }
+.tool-grid{ display: grid; gap: 14px; }
+.tool-grid a.tool-link{
+  display: block; background: var(--surface); border: 1px solid var(--border);
+  border-radius: 6px; padding: 20px; text-decoration: none; color: var(--ink);
+}
+.tool-grid a.tool-link h2{ font-family: 'Tiro Bangla', serif; font-weight: 400; font-size: 1.2rem; margin: 0 0 6px; }
+.tool-grid a.tool-link p{ margin: 0; color: var(--ink-soft); font-size: 0.9rem; }
+.related{ margin-top: 30px; }
+.related h3{ font-size: 0.95rem; color: var(--ink-soft); font-weight: 600; margin-bottom: 8px; }
+.related ul{ margin: 0; padding-left: 18px; }
+.related a{ color: var(--accent-ink); }
+footer{ margin-top: 40px; color: var(--ink-soft); font-size: 0.85rem; text-align: center; }
+@media (prefers-reduced-motion: reduce){ *{ transition: none !important; } }

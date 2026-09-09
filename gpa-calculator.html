@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SSC / HSC GPA ক্যালকুলেটর বাংলাদেশ | হিসাবঘর</title>
+<meta name="description" content="SSC ও HSC পরীক্ষার নম্বর দিয়ে বিনামূল্যে GPA ক্যালকুলেট করুন, ৪র্থ বিষয়ের নিয়মসহ। সব শিক্ষা বোর্ডের জন্য প্রযোজ্য।">
+<link rel="canonical" href="https://hishabghor.me/gpa-calculator.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tiro+Bangla:ital@0;1&family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-XXXXXXXXXX');
+</script>
+</head>
+<body>
+<div class="wrap">
+  <header class="site">
+    <a class="brand" href="index.html">হিসাবঘর</a>
+  </header>
+  <nav class="crumbs"><a href="index.html">হোম</a> / GPA ক্যালকুলেটর</nav>
+
+  <h1>SSC / HSC GPA ক্যালকুলেটর</h1>
+  <div class="intro">
+    <p>রেজাল্টের আগে নিজের সম্ভাব্য GPA আন্দাজ করতে চাইলে, বা রেজাল্ট পাওয়ার পর হাতে হিসাব মিলিয়ে দেখতে চাইলে — প্রতিটা বিষয়ের নম্বর দিয়ে দিন, বাংলাদেশ শিক্ষা বোর্ডের নিয়ম অনুযায়ী GPA বের করে দেবে এই টুল।</p>
+  </div>
+
+  <div class="card">
+    <h2>GPA হিসাব করুন</h2>
+    <p class="sub">প্রতিটি বিষয়ে প্রাপ্ত নম্বর দিন, প্রয়োজনে একটি বিষয়কে ৪র্থ বিষয় হিসেবে চিহ্নিত করুন।</p>
+
+    <div class="subj-count">
+      <label style="color:var(--ink-soft); font-size:0.9rem;">মোট বিষয় সংখ্যা:</label>
+      <select id="gpa-subj-count" onchange="rebuildGpaTable()">
+        <option value="5">৫</option><option value="6">৬</option><option value="7" selected>৭</option>
+        <option value="8">৮</option><option value="9">৯</option>
+      </select>
+    </div>
+
+    <table class="gpa-table">
+      <thead><tr><th>বিষয়ের নাম</th><th>নম্বর (০-১০০)</th><th>৪র্থ বিষয়?</th></tr></thead>
+      <tbody id="gpa-tbody"></tbody>
+    </table>
+
+    <button class="btn" onclick="calcGPA()">GPA হিসাব করুন</button>
+    <div class="error-text" id="gpa-error"></div>
+
+    <div class="result" id="gpa-result">
+      <div class="big" id="gpa-result-big"></div>
+      <div class="rows" id="gpa-result-rows"></div>
+    </div>
+
+    <p class="note">গ্রেডিং: A+ (৮০-১০০) = ৫.০০, A (৭০-৭৯) = ৪.০০, A- (৬০-৬৯) = ৩.৫০, B (৫০-৫৯) = ৩.০০, C (৪০-৪৯) = ২.০০, D (৩৩-৩৯) = ১.০০, F (০-৩২) = ০.০০। ৪র্থ বিষয়ে ২.০০-এর বেশি পয়েন্ট শুধু বোনাস হিসেবে যোগ হয়; ৪র্থ বিষয়ে ফেল করলে মূল ফলাফলে প্রভাব পড়ে না, কিন্তু আবশ্যিক বিষয়ে ফেল করলে সামগ্রিক ফলাফল ০.০০ ধরা হয়। এটি একটি স্বাধীন হিসাব — চূড়ান্ত ফলাফলের জন্য আপনার বোর্ডের প্রকাশিত রেজাল্ট-ই সঠিক ধরতে হবে।</p>
+  </div>
+
+  <div class="related">
+    <h3>আরও দেখুন</h3>
+    <ul>
+      <li><a href="bangla-date-converter.html">বাংলা তারিখ কনভার্টার</a></li>
+      <li><a href="land-calculator.html">জমির মাপ কনভার্টার</a></li>
+    </ul>
+  </div>
+
+  <footer>হিসাবঘর — একটি ছোট, স্বাধীনভাবে তৈরি টুলবক্স।</footer>
+</div>
+
+<script>
+const bnDigits = ['০','১','২','৩','৪','৫','৬','৭','৮','৯'];
+function toBnNum(n){ return String(n).split('').map(c => (c>='0'&&c<='9') ? bnDigits[c] : c).join(''); }
+function gradePoint(marks){
+  if(marks>=80) return 5.00; if(marks>=70) return 4.00; if(marks>=60) return 3.50;
+  if(marks>=50) return 3.00; if(marks>=40) return 2.00; if(marks>=33) return 1.00; return 0.00;
+}
+function gradeLetter(marks){
+  if(marks>=80) return 'A+'; if(marks>=70) return 'A'; if(marks>=60) return 'A-';
+  if(marks>=50) return 'B'; if(marks>=40) return 'C'; if(marks>=33) return 'D'; return 'F';
+}
+function rebuildGpaTable(){
+  const count = parseInt(document.getElementById('gpa-subj-count').value);
+  const tbody = document.getElementById('gpa-tbody');
+  tbody.innerHTML = '';
+  for(let i=0;i<count;i++){
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td><input type="text" placeholder="বিষয় ${toBnNum(i+1)}" id="gpa-name-${i}"></td>
+      <td><input type="number" min="0" max="100" id="gpa-marks-${i}"></td>
+      <td style="text-align:center;"><input type="checkbox" name="gpa-4th" value="${i}"></td>
+    `;
+    tbody.appendChild(tr);
+  }
+  document.getElementById('gpa-result').classList.remove('show');
+}
+function calcGPA(){
+  const errEl = document.getElementById('gpa-error');
+  const resEl = document.getElementById('gpa-result');
+  errEl.classList.remove('show'); resEl.classList.remove('show');
+  const count = parseInt(document.getElementById('gpa-subj-count').value);
+  const fourthRadios = document.querySelectorAll('input[name="gpa-4th"]');
+  let fourthIdx = -1;
+  fourthRadios.forEach(cb=>{ if(cb.checked) fourthIdx = parseInt(cb.value); });
+  let subjects = [];
+  for(let i=0;i<count;i++){
+    const marksEl = document.getElementById('gpa-marks-'+i);
+    const marks = parseFloat(marksEl.value);
+    if(isNaN(marks) || marks<0 || marks>100){
+      errEl.textContent = `বিষয় ${toBnNum(i+1)}-এর নম্বর ০-১০০ এর মধ্যে দিন।`;
+      errEl.classList.add('show');
+      return;
+    }
+    subjects.push({ idx:i, marks, gp: gradePoint(marks), letter: gradeLetter(marks) });
+  }
+  let hasCompulsoryFail = false, total = 0, compulsoryCount = 0;
+  subjects.forEach(s=>{
+    if(s.idx === fourthIdx){
+      if(s.gp > 2.00){ total += (s.gp - 2.00); }
+    } else {
+      compulsoryCount++;
+      if(s.gp === 0){ hasCompulsoryFail = true; }
+      total += s.gp;
+    }
+  });
+  let gpa = hasCompulsoryFail ? 0.00 : (total / compulsoryCount);
+  gpa = Math.round(gpa*100)/100;
+  document.getElementById('gpa-result-big').textContent = `GPA: ${gpa.toFixed(2)}`;
+  let rows = '';
+  subjects.forEach(s=>{
+    const nameEl = document.getElementById('gpa-name-'+s.idx);
+    const label = (nameEl.value.trim() || `বিষয় ${toBnNum(s.idx+1)}`) + (s.idx===fourthIdx ? ' (৪র্থ)':'');
+    rows += `<div>${label}</div><div>${s.marks} — ${s.letter} (${s.gp.toFixed(2)})</div>`;
+  });
+  document.getElementById('gpa-result-rows').innerHTML = rows;
+  resEl.classList.add('show');
+  if(hasCompulsoryFail){
+    errEl.textContent = 'একটি আবশ্যিক বিষয়ে ফেল থাকায় সামগ্রিক ফলাফল ০.০০ দেখানো হয়েছে।';
+    errEl.classList.add('show');
+  }
+}
+rebuildGpaTable();
+</script>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>জমির মাপ ক্যালকুলেটর — শতক, কাঠা, বিঘা, একর কনভার্টার | হিসাবঘর</title>
+<meta name="description" content="শতাংশ, কাঠা, বিঘা, একর, হেক্টর, বর্গফুট ও বর্গমিটার — বিনামূল্যে জমির মাপ কনভার্টার। জমি কেনাবেচা ও দলিলের হিসাবের জন্য সহজ টুল।">
+<link rel="canonical" href="https://hishabghor.me/land-calculator.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tiro+Bangla:ital@0;1&family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-XXXXXXXXXX');
+</script>
+</head>
+<body>
+<div class="wrap">
+  <header class="site">
+    <a class="brand" href="index.html">হিসাবঘর</a>
+  </header>
+  <nav class="crumbs"><a href="index.html">হোম</a> / জমির মাপ কনভার্টার</nav>
+
+  <h1>জমির মাপ কনভার্টার</h1>
+  <div class="intro">
+    <p>জমি কেনাবেচা, দলিল লেখা বা নামজারির সময় প্রায়ই শতাংশ, কাঠা, বিঘা বা একরের মধ্যে হিসাব মেলাতে হয়। এই টুলে একটা মান লিখলেই বাকি সবকটা এককে রূপান্তরিত মান একসাথে দেখতে পাবেন।</p>
+  </div>
+
+  <div class="card">
+    <h2>রূপান্তর করুন</h2>
+    <p class="sub">যেকোনো একক থেকে বাকি সব এককে একসাথে।</p>
+
+    <div class="field-row">
+      <div class="field">
+        <label>পরিমাণ</label>
+        <input type="number" id="land-value" placeholder="যেমন 5" step="any">
+      </div>
+      <div class="field">
+        <label>একক</label>
+        <select id="land-unit">
+          <option value="shotok">শতাংশ / শতক (Decimal)</option>
+          <option value="kattha">কাঠা</option>
+          <option value="bigha">বিঘা</option>
+          <option value="acre">একর</option>
+          <option value="hectare">হেক্টর</option>
+          <option value="sqft">বর্গফুট</option>
+          <option value="sqm">বর্গমিটার</option>
+        </select>
+      </div>
+    </div>
+
+    <button class="btn" onclick="convertLand()">রূপান্তর করুন</button>
+    <div class="error-text" id="land-error"></div>
+
+    <div class="result" id="land-result">
+      <div class="rows" id="land-result-rows"></div>
+    </div>
+
+    <p class="note">১ কাঠা = ৭২০ বর্গফুট এবং ১ বিঘা = ২০ কাঠা ধরে হিসাব করা হয়েছে (ঢাকা-চট্টগ্রামসহ দেশের অধিকাংশ এলাকায় প্রচলিত মান)। উত্তরাঞ্চলসহ কিছু অঞ্চলে স্থানীয়ভাবে ভিন্ন মান (যেমন ৩০ বা ৩৫ শতাংশে ১ বিঘা) ব্যবহৃত হতে পারে — জমি রেজিস্ট্রেশন বা দলিলের কাজে ব্যবহারের আগে স্থানীয় ভূমি অফিসে যাচাই করে নিন।</p>
+  </div>
+
+  <div class="related">
+    <h3>আরও দেখুন</h3>
+    <ul>
+      <li><a href="bangla-date-converter.html">বাংলা তারিখ কনভার্টার</a></li>
+      <li><a href="gpa-calculator.html">SSC/HSC GPA ক্যালকুলেটর</a></li>
+    </ul>
+  </div>
+
+  <footer>হিসাবঘর — একটি ছোট, স্বাধীনভাবে তৈরি টুলবক্স।</footer>
+</div>
+
+<script>
+const landFactorsToSqft = { shotok: 435.6, kattha: 720, bigha: 14400, acre: 43560, hectare: 107639.104, sqft: 1, sqm: 10.7639 };
+const landLabels = { shotok:'শতাংশ / শতক', kattha:'কাঠা', bigha:'বিঘা', acre:'একর', hectare:'হেক্টর', sqft:'বর্গফুট', sqm:'বর্গমিটার' };
+function convertLand(){
+  const errEl = document.getElementById('land-error');
+  const resEl = document.getElementById('land-result');
+  errEl.classList.remove('show'); resEl.classList.remove('show');
+  const val = parseFloat(document.getElementById('land-value').value);
+  const unit = document.getElementById('land-unit').value;
+  if(isNaN(val) || val < 0){ errEl.textContent='সঠিক পরিমাণ লিখুন।'; errEl.classList.add('show'); return; }
+  const sqft = val * landFactorsToSqft[unit];
+  let rows = '';
+  Object.keys(landFactorsToSqft).forEach(u=>{
+    const converted = sqft / landFactorsToSqft[u];
+    rows += `<div>${landLabels[u]}</div><div>${converted.toLocaleString('en-US',{maximumFractionDigits:4})}</div>`;
+  });
+  document.getElementById('land-result-rows').innerHTML = rows;
+  resEl.classList.add('show');
+}
+</script>
+</body>
+</html>
