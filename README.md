@@ -1,6 +1,6 @@
 # হিসাবঘর (Hisabghor)
 
-হিসাবঘর is a free, browser-based Bengali toolkit for common calculations in Bangladesh. It works without sign-up or app installation.
+Hisabghor is a free, browser-based Bengali toolkit for common calculations in Bangladesh. It works without sign-up or app installation.
 
 ## Tools
 
